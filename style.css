@@ -35,8 +35,11 @@ body {
   background-color: #cfe6f7;
   border: 2px solid #a9d5ea;
   display: flex;
+  justify-content: end;
+  align-items: center;
   height: 86px;
   width: 450px;
+  font-size: 50px;
 }
 
 .calculator {
