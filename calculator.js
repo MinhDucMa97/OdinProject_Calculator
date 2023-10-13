@@ -1,8 +1,8 @@
 let result  = null;
-let firstInput = null, secondInput = null, operator = null;
+let firstInput = "", secondInput = "", operator = null;
 let isInput = true;
 
-const substraction = (userInput1, userInput2) =>
+const substraction = (userInput1, userInput2) => 
   parseInt(userInput1) - parseInt(userInput2);
 const addition = (userInput1, userInput2) =>
   parseInt(userInput1) - parseInt(userInput2);
@@ -40,7 +40,7 @@ const operate = (operatorInput, userInput1, userInput2) => {
     case "AC":
       clearInput();
   }
-  return calculatedResult;
+  displayNum(result);
 };
 
 function displayNum(numToDisplay) {
@@ -59,14 +59,14 @@ function getUserInput() {
     element.addEventListener("click", () => {
       if(Number.isInteger(parseInt(element.value))){
         if(isInput){
-          firstInput = element.value;
+          firstInput = result !== null ? result : firstInput + element.value;
+          displayNum(firstInput);
         }
         else {
-          secondInput = element.value;
+          secondInput += element.value;
+          displayNum(secondInput)
         }
       }
-        
-      displayNum(element.value);
 
       if(element.value === "+" || element.value === "-" || element.value === "*" || element.value === "/"){
         operator = element.value;
