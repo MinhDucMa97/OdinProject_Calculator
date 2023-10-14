@@ -72,6 +72,10 @@ function getUserInput() {
         element.value === "*" ||
         element.value === "/"
       ) {
+        if (result !== "") {
+          firstInput = result;
+          secondInput = "";
+        }
         operator = element.value;
         isInput = false;
       }
