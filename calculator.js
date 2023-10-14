@@ -1,11 +1,13 @@
-let result  = null;
-let firstInput = "", secondInput = "", operator = null;
+let result = "";
+let firstInput = "",
+  secondInput = "",
+  operator = "";
 let isInput = true;
 
-const substraction = (userInput1, userInput2) => 
+const subtraction = (userInput1, userInput2) =>
   parseInt(userInput1) - parseInt(userInput2);
 const addition = (userInput1, userInput2) =>
-  parseInt(userInput1) - parseInt(userInput2);
+  parseInt(userInput1) + parseInt(userInput2);
 const multiplication = (userInput1, userInput2) =>
   parseInt(userInput1) * parseInt(userInput2);
 const division = (userInput1, userInput2) => {
@@ -16,40 +18,37 @@ const division = (userInput1, userInput2) => {
 };
 
 const clearInput = () => {
-  inputContainer.length = 0;
-  result = null;
-  firstInput = null;
-  secondInput = null;
-} 
+  result = "";
+  firstInput = "";
+  secondInput = "";
+  operator = "";
+
+  const display = document.querySelector(".display");
+  display.textContent = "";
+};
 
 const operate = (operatorInput, userInput1, userInput2) => {
-  
   switch (operatorInput) {
-    case "addition":
+    case "+":
       result = addition(userInput1, userInput2);
       break;
-    case "substraction":
-      result = substraction(userInput1, userInput2);
+    case "-":
+      result = subtraction(userInput1, userInput2);
       break;
-    case "multiplication":
+    case "*":
       result = multiplication(userInput1, userInput2);
       break;
-    case "division":
+    case "/":
       result = division(userInput1, userInput2);
       break;
-    case "AC":
-      clearInput();
   }
   displayNum(result);
 };
 
 function displayNum(numToDisplay) {
   let display = document.querySelector(".display");
-  if (Number.isInteger(parseInt(numToDisplay))) {
+  if (Number.isInteger(parseFloat(numToDisplay))) {
     display.innerHTML = parseInt(numToDisplay);
-  }
-  else if(numToDisplay === "."){
-    display.innerHTML = numToDisplay;
   }
 }
 
@@ -57,20 +56,37 @@ function getUserInput() {
   let buttons = document.querySelectorAll("button");
   buttons.forEach((element) => {
     element.addEventListener("click", () => {
-      if(Number.isInteger(parseInt(element.value))){
-        if(isInput){
-          firstInput = result !== null ? result : firstInput + element.value;
+      if (Number.isInteger(parseInt(element.value)) || element.value === ".") {
+        if (isInput) {
+          firstInput = result !== "" ? result : firstInput + element.value;
           displayNum(firstInput);
-        }
-        else {
+        } else {
           secondInput += element.value;
-          displayNum(secondInput)
+          displayNum(secondInput);
         }
       }
 
-      if(element.value === "+" || element.value === "-" || element.value === "*" || element.value === "/"){
+      if (
+        element.value === "+" ||
+        element.value === "-" ||
+        element.value === "*" ||
+        element.value === "/"
+      ) {
         operator = element.value;
         isInput = false;
+      }
+
+      if (element.value === "AC") {
+        clearInput();
+        isInput = true;
+        displayNum(null);
+      }
+
+      if (element.value === "=") {
+        operate(operator, firstInput, secondInput);
+        displayNum(result);
+        isInput = true;
+        secondInput = "";
       }
     });
   });
