@@ -1,30 +1,30 @@
 let result = "";
-let firstInput = "",
-  secondInput = "",
+let firstInput = "0",
+  secondInput = "0",
   operator = "";
 let isInput = true;
 
 const subtraction = (userInput1, userInput2) =>
-  parseInt(userInput1) - parseInt(userInput2);
+  parseFloat(userInput1) - parseFloat(userInput2);
 const addition = (userInput1, userInput2) =>
-  parseInt(userInput1) + parseInt(userInput2);
+  parseFloat(userInput1) + parseFloat(userInput2);
 const multiplication = (userInput1, userInput2) =>
-  parseInt(userInput1) * parseInt(userInput2);
+  parseFloat(userInput1) * parseFloat(userInput2);
 const division = (userInput1, userInput2) => {
   if (userInput2 === 0) {
     return;
   }
-  return parseInt(userInput1) / parseInt(userInput2);
+  return parseFloat(userInput1) / parseFloat(userInput2);
 };
 
 const clearInput = () => {
   result = "";
-  firstInput = "";
-  secondInput = "";
+  firstInput = "0";
+  secondInput = "0";
   operator = "";
 
   const display = document.querySelector(".display");
-  display.textContent = "";
+  display.textContent = "0";
 };
 
 const operate = (operatorInput, userInput1, userInput2) => {
@@ -47,20 +47,28 @@ const operate = (operatorInput, userInput1, userInput2) => {
 
 function displayNum(numToDisplay) {
   let display = document.querySelector(".display");
-  if (Number.isInteger(parseFloat(numToDisplay))) {
-    display.innerHTML = parseInt(numToDisplay);
+  if (!isNaN(parseFloat(numToDisplay))) {
+    display.innerHTML = numToDisplay;
   }
 }
 
 function getUserInput() {
+  displayNum("0");
   let buttons = document.querySelectorAll("button");
   buttons.forEach((element) => {
     element.addEventListener("click", () => {
-      if (Number.isInteger(parseInt(element.value)) || element.value === ".") {
+      
+      if (!isNaN(parseFloat(element.value)) || element.value === "." ) {
         if (isInput) {
-          firstInput = result !== "" ? result : firstInput + element.value;
+          if (firstInput === "0"){
+            firstInput = "0" +  element.value;
+          }
+          else {
+            firstInput = result !== "" ? result : firstInput + element.value;
+          }
           displayNum(firstInput);
-        } else {
+        } 
+        else {
           secondInput += element.value;
           displayNum(secondInput);
         }
@@ -83,12 +91,12 @@ function getUserInput() {
       if (element.value === "AC") {
         clearInput();
         isInput = true;
-        displayNum(null);
+        displayNum("0");
       }
 
       if (element.value === "=") {
         operate(operator, firstInput, secondInput);
-        displayNum(result);
+        displayNum(result.toString());
         isInput = true;
         secondInput = "";
       }
