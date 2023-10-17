@@ -83,7 +83,7 @@ body {
   background-color: #ff847c;
 }
 
-.calculator button.number[value="zero"] {
+.calculator button.number[value="0"] {
   grid-column-start: 1;
   grid-column-end: 3;
 }

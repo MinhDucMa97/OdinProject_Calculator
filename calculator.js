@@ -1,6 +1,6 @@
 let result = "";
-let firstInput = "0",
-  secondInput = "0",
+let firstInput = "",
+  secondInput = "",
   operator = "";
 let isInput = true;
 
@@ -19,8 +19,8 @@ const division = (userInput1, userInput2) => {
 
 const clearInput = () => {
   result = "";
-  firstInput = "0";
-  secondInput = "0";
+  firstInput = "";
+  secondInput = "";
   operator = "";
 
   const display = document.querySelector(".display");
@@ -57,19 +57,13 @@ function getUserInput() {
   let buttons = document.querySelectorAll("button");
   buttons.forEach((element) => {
     element.addEventListener("click", () => {
-      
-      if (!isNaN(parseFloat(element.value)) || element.value === "." ) {
+      if (!isNaN(parseFloat(element.value)) || element.value === ".") {
         if (isInput) {
-          if (firstInput === "0"){
-            firstInput = "0" +  element.value;
-          }
-          else {
-            firstInput = result !== "" ? result : firstInput + element.value;
-          }
+          firstInput = result !== "" ? result : firstInput + element.value;
           displayNum(firstInput);
-        } 
-        else {
+        } else {
           secondInput += element.value;
+
           displayNum(secondInput);
         }
       }
