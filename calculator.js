@@ -11,10 +11,24 @@ const addition = (userInput1, userInput2) =>
 const multiplication = (userInput1, userInput2) =>
   parseFloat(userInput1) * parseFloat(userInput2);
 const division = (userInput1, userInput2) => {
-  if (userInput2 === 0) {
-    return;
+  if (userInput2 === "0") {
+    return "ERROR";
   }
   return parseFloat(userInput1) / parseFloat(userInput2);
+};
+
+const percentage = (userInput) => userInput / 100;
+
+const signConvertor = (userInput) => {
+  if (!isNaN(parseFloat(userInput))) {
+    if (parseFloat(userInput) < 0) {
+      return userInput.replace("-", "");
+    } else {
+      return "-" + userInput;
+    }
+  } else {
+    return "ERROR";
+  }
 };
 
 const clearInput = () => {
@@ -49,6 +63,8 @@ function displayNum(numToDisplay) {
   let display = document.querySelector(".display");
   if (!isNaN(parseFloat(numToDisplay))) {
     display.innerHTML = numToDisplay;
+  } else if (numToDisplay === "ERROR") {
+    display.innerHTML = numToDisplay;
   }
 }
 
@@ -63,9 +79,24 @@ function getUserInput() {
           displayNum(firstInput);
         } else {
           secondInput += element.value;
-
           displayNum(secondInput);
         }
+      }
+      if (element.value === "%" || element.value === "sign") {
+        if (isInput) {
+          if (element.value === "%") {
+            firstInput = percentage(firstInput);
+          } else {
+            firstInput = signConvertor(firstInput);
+          }
+        } else {
+          if (element.value === "%") {
+            secondInput = percentage(secondInput);
+          } else {
+            secondInput = signConvertor(secondInput);
+          }
+        }
+        displayNum(isInput ? firstInput : secondInput);
       }
 
       if (
