@@ -3,6 +3,7 @@ let firstInput = "",
   secondInput = "",
   operator = "";
 let isInput = true;
+let chainOperator = false;
 
 const subtraction = (userInput1, userInput2) =>
   parseFloat(userInput1) - parseFloat(userInput2);
@@ -56,7 +57,6 @@ const operate = (operatorInput, userInput1, userInput2) => {
       result = division(userInput1, userInput2);
       break;
   }
-  displayNum(result);
 };
 
 function displayNum(numToDisplay) {
@@ -109,6 +109,10 @@ function getUserInput() {
           firstInput = result;
           secondInput = "";
         }
+        if(operator !== "" || operator === "="){
+          chainOperator = true;
+        }
+
         operator = element.value;
         isInput = false;
       }
@@ -119,12 +123,21 @@ function getUserInput() {
         displayNum("0");
       }
 
-      if (element.value === "=") {
-        operate(operator, firstInput, secondInput);
-        displayNum(result.toString());
-        isInput = true;
+      if(operator !== "" && firstInput !== "" && secondInput !== ""){
+        operate(operator,firstInput, secondInput);
+      }
+
+      if (element.value === "=" || chainOperator){
+        displayNum(result);
+        isInput = false;
         secondInput = "";
       }
+      // if (element.value === "=") {
+      //   operate(operator, firstInput, secondInput);
+      //   displayNum(result.toString());
+      //   isInput = true;
+      //   secondInput = "";
+      // }
     });
   });
 }
