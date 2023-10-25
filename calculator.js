@@ -130,14 +130,10 @@ function getUserInput() {
       if (element.value === "=" || chainOperator){
         displayNum(result);
         isInput = false;
+        chainOperator = false; 
         secondInput = "";
       }
-      // if (element.value === "=") {
-      //   operate(operator, firstInput, secondInput);
-      //   displayNum(result.toString());
-      //   isInput = true;
-      //   secondInput = "";
-      // }
+     
     });
   });
 }
